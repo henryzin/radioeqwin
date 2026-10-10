@@ -1,63 +1,63 @@
 # Radio EQ Windows Native
 
-This project is a full Windows-native rewrite of the Radio EQ idea: the app downloads or opens a local audio file, applies a Bass Boost filter, and plays it back using Windows APIs.
+This is the easy version for normal Windows users: download a portable folder, run one program, and it should work without technical setup.
 
-## Core idea
+## What it does
 
-- The app works with direct local files or YouTube links.
-- YouTube downloads are handled by `yt-dlp`.
-- Audio conversion is handled by `ffmpeg`.
-- The output signal is processed with a simple bass-boost DSP filter.
-- Playback is done with native Windows audio APIs.
+- plays local audio files
+- plays YouTube links
+- applies a simple Bass Boost filter
+- works as a compact Win32 app
 
-## Tools used
+## The user flow
 
-- C++17
-- Win32 API
-- `yt-dlp` for YouTube extraction
-- `ffmpeg` for conversion to WAV
-- `g++` with MinGW/MSYS2 on Windows
+1. Download the ZIP
+2. Extract it anywhere
+3. Double-click the main app
+4. Paste a YouTube link or choose a local file
+5. Click Play
 
-## Build on Windows
+## Important for a beginner
 
-### 1) Install MSYS2 UCRT64
+The app is designed to be portable. The ideal setup is:
 
-```bash
-pacman -S --needed mingw-w64-ucrt-x86_64-toolchain zip
-```
+- a single folder
+- one executable file
+- no compilation needed
+- no terminal commands needed
+- no Git or build tools needed
 
-### 2) Install external tools
+## Required tools for the runtime
 
-Install `yt-dlp` and `ffmpeg` and ensure they are in PATH.
+For YouTube and conversion support, the app expects these files in the same folder:
 
-### 3) Build
+- `yt-dlp.exe`
+- `ffmpeg.exe`
 
-PowerShell:
+If they are missing, use the helper script:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\build_windows.ps1
-```
+- `fix_tools.cmd`
 
-Or batch:
+This script downloads the official binaries and places them next to the app.
 
-```cmd
-build_windows.bat
-```
+## Start normally
 
-### 4) Run
+Double-click:
 
-```cmd
-radioeq.exe
-```
+- `radioeq.exe`
 
-## Behavior
+If you do not have the external tools yet, double-click:
 
-- Enter a local file path or a YouTube URL.
-- Click Play.
-- The app downloads or prepares the audio in a temp folder.
-- A Bass Boost effect is applied to the PCM stream.
-- The boosted WAV is then played using Windows sound APIs.
+- `fix_tools.cmd`
+
+Then run `radioeq.exe` again.
+
+## Why this is simpler
+
+This avoids the scary command-line build process. The app is meant to be a finished Windows program, not a developer project.
 
 ## Notes
 
-This is a clean rewrite from scratch for Windows and is intentionally independent from the Linux/FLTK version.
+- This repo is a clean Windows-native rewrite.
+- The goal is to ship a user-friendly package, not a technical developer environment.
+- The build helpers remain in the repo for maintainers, but the end user should only use the executable.
